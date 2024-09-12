@@ -1,0 +1,125 @@
+﻿@model IEnumerable<ProjeTakip.Model.ProjectTrace.PersonelProjects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<div class="card">
+    <h5 class="card-header">Projects</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table" id="projectlist">
+            <thead>
+                <tr>
+                    <th>Project Header</th>
+                    <th>Priority</th>
+                    <th>Project Date</th>
+                    <th>Liables</th>
+                    <th>Status</th>
+                    <th>% Completion</th>
+                    <th>Actions</th>
+                    <th>Project Description</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.ProjectHeader</strong></td>
+
+                        <td>
+                            @if (item.PriorityStatus == "Low priority")
+                            {
+                                <span class="badge bg-label-warning me-1" style="width:150px;">@item.PriorityStatus</span>
+                            }
+                            else if (item.PriorityStatus == "Mid-priority")
+                            {
+                                <span class="badge bg-label-info me-1" style="width:150px;">@item.PriorityStatus</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-primary me-1" style="width:150px;">@item.PriorityStatus</span>
+                            }
+                        </td>
+
+                        <td>@item.CreationDate</td>
+                        <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                @foreach (var y in item.PersonelInfoss)
+                                {
+                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="@y.NameSurname">
+                                        <img src="@y.PersonelPhoto" alt="Avatar" class="rounded-circle">
+                                    </li>
+
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            @if (!item.IsCompleted)
+                            {
+                                <span class="badge bg-label-danger me-1" style="width:50px;"><i class="bx bx-message-square-minus"></i></span>
+
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-success me-1" style="width:50px;"><i class="bx bx-message-square-check"></i></span>
+                            }
+                        </td>
+                        <td>
+                            <div class="progress" style="height:14px">
+                                <div class="progress-bar" role="progressbar" style="width: @item.CompletionPercentage%; background-color:#696cff;" aria-valuenow="@item.CompletionPercentage" aria-valuemin="0" aria-valuemax="100">
+                                    @item.CompletionPercentage%
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/PersonelProjects/Edit/@item.PersonelProjeId"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    <a class="dropdown-item" href="/PersonelProjects/Complete/@item.PersonelProjeId"><i class="bx bx-check me-1"></i> Complete</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>@item.ProjectDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#projectlist').DataTable({
+        language: {
+            info: " _START_ - _END_ records are showed from _TOTAL_ ",
+            infoEmpty: "There is no record to show.",
+            loadingRecords: "Loading records",
+            zeroRecords: "Table is empty.",
+            search: "Search:",
+            infoFiltered: "(filtered from total _MAX_ )",
+            buttons: {
+                copyTitle: "Copied to panel.",
+                copySuccess: "%d row is copied to panel. ",
+                copy: "Copy",
+                print: "Print",
+            },
+
+            paginate: {
+                first: "First",
+                previous: "Previous",
+                next: "After",
+                last: "Last"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

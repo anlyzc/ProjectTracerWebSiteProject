@@ -1,0 +1,92 @@
+﻿@model ProjeTakip.Model.Personel.PersonelInfos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+ 
+        <div class="card mb-4">
+            <h5 class="card-header">Profile Details</h5>
+
+            <hr class="my-0">
+            <div class="card-body">
+                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Name and surname:</label>
+                            @Html.DisplayFor(model => model.NameSurname)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Department::</label>
+                            @Html.DisplayFor(model => model.Department)
+                        </div>
+                         <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Assignment:</label>
+                            @Html.DisplayFor(model => model.Assignment)
+                        </div>
+                         <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Mail:</label>
+                            @Html.DisplayFor(model => model.EMail)
+                        </div> 
+                        <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Telephone:</label>
+                            @Html.DisplayFor(model => model.PersonelTelNo)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Authority:</label>
+                            @Html.DisplayFor(model => model.Authority)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">T.C Identity Number:</label>
+                            @Html.DisplayFor(model => model.TCNO)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Birth Date:</label>
+                            @Html.DisplayFor(model => model.BirthDate)
+                        </div> 
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Address:</label>
+                            @Html.DisplayFor(model => model.PersonelAddress)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">First day at work:</label>
+                            @Html.DisplayFor(model => model.FirstDayAtWork)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Maritial Status:</label>
+                            @Html.DisplayFor(model => model.MaritialStatus)
+                        </div> 
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Position description:</label>
+                            @Html.DisplayFor(model => model.PositionDescription)
+                        </div> 
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Relative Info :</label>
+                            @Html.DisplayFor(model => model.YakinBilgisi)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Relative Tel. num. :</label>
+                            @Html.DisplayFor(model => model.YakinTelNo)
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Relative TC num :</label>
+                            @Html.DisplayFor(model => model.YakinTC)
+                        </div>
+
+
+                    </div>
+                    <div class="mt-2">
+                        <a href="/PersonelInfos/Index" type="submit" class="btn btn-primary me-2">Return to main page</a>
+                       
+                    </div>
+                </form>
+            </div>
+            <!-- /Account -->
+        </div>
+        
+    </div>
+</div>
+

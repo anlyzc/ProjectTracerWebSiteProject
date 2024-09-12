@@ -1,0 +1,129 @@
+﻿@model IEnumerable<ProjeTakip.Model.Personel.PersonelInfos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+
+<div class="card">
+    <h5 class="card-header">Personel List</h5>
+    <div class="card-body">
+
+        <table id="personellist" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EMail)
+                    </th>
+                    <th>
+                        Personel Photo
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Authority)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NameSurname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TCNO)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Assignment)
+                    </th>
+
+                    <th>
+                        Personel Tel Num
+                    </th>
+                    <th>Activities  </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PositionDescription)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="mailto:@item.EMail">@item.EMail</a>
+                        </td>
+                        <td>
+                            <img src="@item.PersonelPhoto" style="width:80px; height:80px;" class="rounded-circle" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Authority)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameSurname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TCNO)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Assignment)
+                        </td>
+
+                        <td>
+                            <a href="tel:@item.PersonelTelNo">@item.PersonelTelNo</a>
+                        </td>
+                        <td>
+                            <a href="/PersonelInfos/Edit/@item.PersonelInfoId" class="btn btn-success"> <span class="tf-icons bx bx-edit"></span></a>
+                            <a href="/PersonelInfos/Details/@item.PersonelInfoId" class="btn btn-primary"><span class="tf-icons bx bx-detail"></span></a>
+                            <a href="/PersonelInfos/Delete/@item.PersonelInfoId" class="btn btn-danger" style="position:absolute"><span class="tf-icons bx bx-trash"></span></a>
+                            @*<a href="/PersonelBilgileris/HareketFöyü/@item.PersonelBilgileriId" class="btn btn-warning"><span class="tf-icons bx bx-history"></span></a>*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionDescription)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#personellist').DataTable({
+        language: {
+            info: " _START_ - _END_ records are showed from _TOTAL_ ",
+            infoEmpty: "There is no record to show.",
+            loadingRecords: "Loading records",
+            zeroRecords: "Table is empty.",
+            search: "Search:",
+            infoFiltered: "(filtered from total _MAX_ )",
+            buttons: {
+                copyTitle: "Copied to panel.",
+                copySuccess: "%d row is copied to panel. ",
+                copy: "Copy",
+                print: "Print",
+            },
+
+            paginate: {
+                first: "First",
+                previous: "Previous",
+                next: "After",
+                last: "Last"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

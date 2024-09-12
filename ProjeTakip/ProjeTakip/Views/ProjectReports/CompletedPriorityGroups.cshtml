@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "CompletedPriorityGroups";
+    Layout = null;
+}
+
+<div class="col-md-11">
+
+    <div class="card card-info">
+
+        <div class="card-header">
+
+            <h3 class="card-title"><b>COMPLETED PRIORITY GROUPS DISTRIBTION</b></h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div id="CompletedGraphChart_Div"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.6.4.js"></script>
+
+<script>
+
+    $(document).ready(function ()
+    {
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("VisualizeCompletedStatusGroups", "ProjectReports")',
+                success: function (result)
+                {
+                    google.charts.load('current',
+                    {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function ()
+                    {
+                        drawCompletedChart(result);
+                    });
+
+                }
+
+            });
+
+    });
+
+    function drawCompletedChart(result)
+    {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Priority');
+            data.addColumn('number', 'Project Name');
+            var dataArray = [];
+            $.each(result, function (i, obj)
+            {
+                dataArray.push([obj.PriorityType, obj.PriorityNumber]);
+            });
+            data.addRows(dataArray);
+            var mycolumnChartOptions = {
+                width: "100%",
+                height: 260,
+                pieHole: 0.4,
+                bar: { groupWidth: "100%" },
+
+            };
+            var mycolumnChart = new google.visualization.PieChart(document.getElementById('CompletedGraphChart_Div'));
+            mycolumnChart.draw(data, mycolumnChartOptions);
+    }
+</script>
+
